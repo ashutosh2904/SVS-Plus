@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVS+ HTML Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f9f9f9; padding: 20px; }
+        h1 { color: #333; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .high { background-color: #ffcccc; }
+        .medium { background-color: #fff0b3; }
+        .low { background-color: #d6f5d6; }
+        .none { background-color: #eee; }
+    </style>
+</head>
+<body>
+    <h1>SVS+ Scan Report</h1>
+    <p><strong>Target:</strong> scanme.nmap.org</p>
+    <p><strong>Scanned At:</strong> 2025-07-13 20:50:47</p>
+    <table>
+        <tr>
+            <th>Port</th>
+            <th>Banner</th>
+            <th>Service</th>
+            <th>Version</th>
+            <th>Severity</th>
+        </tr>
+
+        <tr class="none">
+            <td>21</td>
+            <td>Error: [WinError 10054] An existing connection was forcibly closed by the remote host</td>
+            <td>-</td>
+            <td>-</td>
+            <td>None</td>
+        </tr>
+
+        <tr class="none">
+            <td>22</td>
+            <td>No banner received</td>
+            <td>-</td>
+            <td>-</td>
+            <td>None</td>
+        </tr>
+
+        <tr class="none">
+            <td>80</td>
+            <td>Timed out</td>
+            <td>-</td>
+            <td>-</td>
+            <td>None</td>
+        </tr>
+
+    </table>
+</body>
+</html>
