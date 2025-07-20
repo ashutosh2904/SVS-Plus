@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SVS+ - Smart Vulnerability Scanner</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <style>
+    body { padding: 2rem; }
+    .is-open { color: green; font-weight: bold; }
+    .is-vulnerable { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">🔐 SVS+ – Smart Vulnerability Scanner</h1>
+
+    <!-- 🔴 Error Message -->
+    {% if error %}
+    <div class="notification is-danger is-light">
+      <strong>🚨 Error:</strong> {{ error }}
+    </div>
+    {% endif %}
+
+    <!-- ⚠️ No results -->
+    {% if results|length == 0 and not error and request.method == 'POST' %}
+    <div class="notification is-warning is-light">
+      ⚠️ No open ports found. Try a different IP or port range.
+    </div>
+    {% endif %}
+
+    <!-- ✅ Successful scan but no vulnerabilities -->
+    {% if results and summary|length == 0 %}
+    <div class="notification is-success is-light">
+      ✅ Scan completed. No known vulnerabilities detected!
+    </div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="field">
+        <label class="label">Target IP or Domain</label>
+        <div class="control">
+          <input class="input" type="text" name="ip" placeholder="e.g. scanme.nmap.org" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Port Range</label>
+        <div class="control">
+          <input class="input" type="text" name="ports" value="1-1024">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Report Format</label>
+        <div class="control">
+          <div class="select">
+            <select name="output">
+              <option value="console">Console Only</option>
+              <option value="txt">Text File</option>
+              <option value="json">JSON File</option>
+              <option value="html">HTML File</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="checkbox">
+          <input type="checkbox" name="ai-mode">
+          Enable AI Prompt Mode (Stub)
+        </label>
+      </div>
+
+      <div class="field">
+        <label class="checkbox">
+          <input type="checkbox" name="save-screenshot">
+          Save Screenshot of HTML Report
+        </label>
+      </div>
+
+      <div class="control">
+        <button class="button is-primary" type="submit">🚀 Start Scan</button>
+      </div>
+    </form>
+
+    {% if results %}
+    <hr>
+    <h2 class="subtitle">📊 Scan Results:</h2>
+
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>Port</th>
+          <th>Banner</th>
+          <th>Service</th>
+          <th>Version</th>
+          <th>Vulnerable</th>
+          <th>Severity</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in results %}
+        <tr>
+          <td>{{ r.port }}</td>
+          <td>{{ r.banner }}</td>
+          <td>{{ r.service if r.service else "N/A" }}</td>
+          <td>{{ r.version if r.version else "N/A" }}</td>
+          <td class="{{ 'is-vulnerable' if r.vulnerable else '' }}">
+            {{ 'Yes' if r.vulnerable else '❌ Not Detected' }}
+          </td>
+          <td>
+            {% if r.severity %}
+              {{ r.severity|capitalize }}
+            {% else %}
+              🟤 Unknown
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 🤖 AI Prompts -->
+    {% if prompts %}
+    <h3 class="subtitle">🧠 AI Prompts (Stub)</h3>
+    <div class="notification is-primary is-light">
+      <ul>
+        {% for p in prompts %}
+        <li><code>{{ p }}</code></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- 🔐 Summary -->
+    {% if summary %}
+    <h3 class="subtitle">🔐 Vulnerability Summary</h3>
+    <div class="notification is-info is-light">
+      <ul>
+        {% for level, count in summary.items() %}
+        <li>{{ level|capitalize }}: {{ count }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% endif %}
+  </div>
+</body>
+</html>

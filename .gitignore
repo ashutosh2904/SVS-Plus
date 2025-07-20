@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+reports/
+venv/
+tests/
+core/__pycache__/
+core/reports/
+utils/
+
