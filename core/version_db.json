@@ -1,0 +1,14 @@
+{
+  "openssh": {
+    "6.6.1p1": "high",
+    "7.2p2": "medium",
+    "8.0": "low"
+  },
+  "apache": {
+    "2.2.8": "high",
+    "2.4.1": "medium"
+  },
+  "vsftpd": {
+    "2.3.4": "high"
+  }
+}
